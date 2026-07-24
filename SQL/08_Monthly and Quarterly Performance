@@ -1,0 +1,33 @@
+-- Monthly Sales and Profit Trend Analysis
+
+SELECT
+    YEAR(`Order_Date`) AS `Year`,
+    MONTH(`Order_Date`) AS `Month Number`,
+    MONTHNAME(`Order_Date`) AS `Month`,
+    DATE_FORMAT(`Order_Date`, '%Y-%m') AS `Year-Month`,
+    ROUND(SUM(`Sales`), 2) AS `Total Sales`,
+    ROUND(SUM(`Profit`), 2) AS `Total Profit`,
+    ROUND(SUM(`Profit`) / NULLIF(SUM(`Sales`), 0), 4) AS `Profit Margin Percentage`
+FROM orders
+GROUP BY
+    YEAR(`Order_Date`),
+    MONTH(`Order_Date`),
+    MONTHNAME(`Order_Date`),
+    DATE_FORMAT(`Order_Date`, '%Y-%m')
+   ORDER BY
+    YEAR(`Order_Date`),MONTH(`Order_Date`);
+
+-- Quarterly Sales and Profit Trend Analysis
+
+SELECT
+    YEAR(`Order_Date`) AS `Year`,
+    QUARTER(`Order_Date`) AS `Quarter`,
+    ROUND(SUM(`Sales`), 2) AS `Total Sales`,
+    ROUND(SUM(`Profit`), 2) AS `Total Profit`,
+    ROUND(SUM(`Profit`) / NULLIF(SUM(`Sales`), 0), 4) AS `Profit Margin Percentage`
+FROM orders
+GROUP BY
+    YEAR(`Order_Date`),
+    QUARTER(`Order_Date`)
+ORDER BY
+    `Year`,`Quarter`;

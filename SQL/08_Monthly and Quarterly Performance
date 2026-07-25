@@ -25,6 +25,8 @@ SELECT
     ROUND(SUM(`Sales`), 2) AS `Total Sales`,
     ROUND(SUM(`Profit`), 2) AS `Total Profit`,
     ROUND(SUM(`Profit`) / NULLIF(SUM(`Sales`), 0), 4) AS `Profit Margin Percentage`
+    SUM(`Quantity`) AS `Total Quantity Sold`,
+    COUNT(DISTINCT `Order_ID`,`Market`) AS `Number of Order Shipments`
 FROM orders
 GROUP BY
     YEAR(`Order_Date`),
